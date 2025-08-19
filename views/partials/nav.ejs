@@ -1,0 +1,33 @@
+<header class="bg-red-500 text-white p-4 shadow-md">
+  <nav class="container mx-auto flex justify-between items-center">
+    <ul class="flex space-x-4">
+      <li>
+        <a href="/index"
+          class="<%= currantPage === 'index' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300">Airbnb</a>
+      </li>
+      <li>
+        <a href="/home"
+          class="<%= currantPage === 'home' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300">
+          Home Lists</a>
+      </li>
+      <li>
+        <a href="/booking-list"
+          class="<%= currantPage === 'booking-list' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300">Bookings</a>
+      </li>
+      <li>
+        <a href="/favourite-list"
+          class="<%= currantPage === 'favourite-list' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300">Favourites</a>
+      </li>
+      <li>
+        <a href="/add-homeForm"
+          class="<%= currantPage === 'addHome' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300">Add
+          Home</a>
+      </li>
+      <li>
+        <a href="/admin-home"
+          class="<%= currantPage === 'admin-home' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300">Admin
+          Home</a>
+      </li>
+    </ul>
+  </nav>
+</header>

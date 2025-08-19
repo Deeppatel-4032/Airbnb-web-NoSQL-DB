@@ -1,0 +1,44 @@
+<%- include("../partials/head") %>
+  </head>
+
+  <body class="bg-gray-100 text-gray-900">
+    <%- include("../partials/nav") %>
+
+      <main class="container mx-auto px-4 py-10">
+        <h2 class="text-3xl font-bold text-red-500 text-center mb-10">
+          Here are our registered index homes page :
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <% homes.forEach(home=> { %>
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+              <img class="h-48 w-full object-cover" src="<%= home.imageUrl %>" alt="<%= home.name %>" />
+              <div class="p-4">
+                <h3 class="text-lg font-semibold mb-1 truncate">
+                  <%= home.name %>
+                </h3>
+                <p class=" text-gray-400 mb-1">
+                  <%= home.description %>
+                </p>
+                <p class="text-sm text-gray-600 mb-1">
+                  <i class="fas fa-map-marker-alt mr-1"></i>
+                  <%= home.location %>
+                </p>
+                <p class="text-red-500 font-bold mb-2">₹ <%= home.price %> / Night
+                </p>
+
+                <span class="text-gray-600">
+                  <i class="fas fa-star  text-yellow-500"></i>
+                  <%= home.rating %> Rating
+                </span>
+              </div>
+              <button
+                class="p-4 px-7 bg-red-500 font-medium rounded-tr-2xl rounded-bl-2xl text-amber-50 ml-2.5 mb-3">BOOK
+                NOW</button>
+            </div>
+            <% }) %>
+        </div>
+      </main>
+  </body>
+
+  </html>
