@@ -35,7 +35,6 @@ module.exports = class Home {
         );
     } else {
       // insert
-
       return db.collection("homes").insertOne(this);
     }
   }

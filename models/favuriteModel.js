@@ -9,11 +9,24 @@ module.exports = class Favourite {
 
   save() {
     const db = getDB();
-    return db.collection("favourites").insertOne(this);
+    return db
+      .collection("favourites")
+      .findOne({ homeId: this.homeId })
+      .then((existingFav) => {
+        if (!existingFav) {
+          return db.collection("favourites").insertOne(this);
+        }
+        return promiseImpl.resolve();
+      });
   }
-  static addToFavourite() {}
 
-  static getToFavourite() {}
+  static getToFavourite() {
+    const db = getDB();
+    return db.collection("favourites").find().toArray();
+  }
 
-  static deleteById(delHomeId) {}
+  static deleteById(delHomeId) {
+    const db = getDB();
+    return db.collection("favourites").deleteOne({ homeId: delHomeId });
+  }
 };
