@@ -1,61 +1,35 @@
-// local module
-const { ObjectId } = require("mongodb");
-const { getDB } = require("../data/airbnb-db");
+const mongoose = require("mongoose");
+const favouriteModel = require("./favuriteModel");
 
-module.exports = class Home {
-  constructor(name, price, location, rating, imageUrl, description, _id) {
-    this.name = name;
-    this.price = price;
-    this.location = location;
-    this.rating = rating;
-    this.imageUrl = imageUrl;
-    this.description = description;
-    if (_id) {
-      this._id = _id;
-    }
-  }
+const homeSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  rating: {
+    type: Number,
+    required: true,
+  },
+  imageUrl: {
+    type: String,
+  },
+  description: {
+    type: String,
+  },
+});
 
-  save() {
-    const db = getDB();
-    if (this._id) {
-      //update
-      const updateFilde = {
-        name: this.name,
-        price: this.price,
-        location: this.location,
-        rating: this.rating,
-        imageUrl: this.imageUrl,
-        description: this.description,
-      };
-      return db
-        .collection("homes")
-        .updateOne(
-          { _id: new ObjectId(String(this._id)) },
-          { $set: updateFilde }
-        );
-    } else {
-      // insert
-      return db.collection("homes").insertOne(this);
-    }
-  }
+homeSchema.pre("findOneAndDelete", async function (next) {
+  const homeId = this.getQuery()._id;
+  await favouriteModel.deleteMany({ homeId });
+  next();
+});
 
-  static fetchAll() {
-    const db = getDB();
-    return db.collection("homes").find().toArray();
-  }
-
-  static findById(homeId) {
-    const db = getDB();
-    return db
-      .collection("homes")
-      .find({ _id: new ObjectId(String(homeId)) })
-      .next();
-  }
-
-  static deleteById(homeId) {
-    const db = getDB();
-    return db
-      .collection("homes")
-      .deleteOne({ _id: new ObjectId(String(homeId)) });
-  }
-};
+module.exports = mongoose.model("homes", homeSchema);

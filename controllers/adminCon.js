@@ -1,4 +1,4 @@
-const home = require("../models/homeModel");
+const homeModel = require("../models/homeModel");
 
 exports.getAddHome = (req, res) => {
   res.render("admin/edit-home", {
@@ -12,7 +12,7 @@ exports.getEditHome = (req, res) => {
   const homeId = req.params.homeId;
   const editing = req.query.editing === "true";
 
-  home.findById(homeId).then((home) => {
+  homeModel.findById(homeId).then((home) => {
     if (!home) {
       console.log("Not Found Editing Page");
       return res.redirect("/admin-home");
@@ -28,7 +28,7 @@ exports.getEditHome = (req, res) => {
 };
 
 exports.getAdminHome = (req, res) => {
-  home.fetchAll().then((registerHome) => {
+  homeModel.find().then((registerHome) => {
     res.render("admin/adminHome-list", {
       homes: registerHome,
       pageTitle: "Admin house Page",
@@ -42,16 +42,16 @@ exports.postAddHome = (req, res) => {
 
   const { name, price, location, rating, imageUrl, description } = req.body;
 
-  const createHome = new home(
+  const createHome = new homeModel({
     name,
     price,
     location,
     rating,
     imageUrl,
-    description
-  );
-  createHome.save().then(() => {
-    console.log("Home saved successfully");
+    description,
+  });
+  createHome.save().then((result) => {
+    console.log("Home saved successfully", result);
   });
   res.redirect("/admin-home");
 };
@@ -59,26 +59,38 @@ exports.postAddHome = (req, res) => {
 exports.postUpdateHome = (req, res) => {
   const { id, name, price, location, rating, imageUrl, description } = req.body;
 
-  const updateHome = new home(
-    name,
-    price,
-    location,
-    rating,
-    imageUrl,
-    description,
-    id
-  );
-  updateHome.save().then((result) => {
-    console.log("home Details update successfully", result);
-  });
-
-  res.redirect("/admin-home");
+  homeModel
+    .findById(id)
+    .then((home) => {
+      if (!home) {
+        console.log("home is not Found");
+        res.redirect("/admin-home");
+      }
+      (home.name = name),
+        (home.price = price),
+        (home.location = location),
+        (home.rating = rating),
+        (home.imageUrl = imageUrl),
+        (home.description = description);
+      home
+        .save()
+        .then((result) => {
+          console.log("home Details update successfully", result);
+        })
+        .catch((error) => {
+          console.log("home Details not update successfully", error);
+        });
+      res.redirect("/admin-home");
+    })
+    .catch((error) => {
+      console.log("Error while finding home", error);
+    });
 };
 
 exports.postDeleteHome = (req, res) => {
   let { homeId } = req.params;
 
-  home.deleteById(homeId).then((error) => {
+  homeModel.findByIdAndDelete(homeId).then((error) => {
     if (error) {
       console.log("error while Deleteing >>> ", error);
     }

@@ -1,32 +1,12 @@
-// local module
+const mongoose = require("mongoose");
 
-const { getDB } = require("../data/airbnb-db");
+const favouriteSchema = mongoose.Schema({
+  homeId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "homes",
+    required: true,
+    unique: true,
+  },
+});
 
-module.exports = class Favourite {
-  constructor(homeId) {
-    this.homeId = homeId;
-  }
-
-  save() {
-    const db = getDB();
-    return db
-      .collection("favourites")
-      .findOne({ homeId: this.homeId })
-      .then((existingFav) => {
-        if (!existingFav) {
-          return db.collection("favourites").insertOne(this);
-        }
-        return promiseImpl.resolve();
-      });
-  }
-
-  static getToFavourite() {
-    const db = getDB();
-    return db.collection("favourites").find().toArray();
-  }
-
-  static deleteById(delHomeId) {
-    const db = getDB();
-    return db.collection("favourites").deleteOne({ homeId: delHomeId });
-  }
-};
+module.exports = mongoose.model("favourites", favouriteSchema);

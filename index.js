@@ -1,5 +1,6 @@
 // External Module
 const express = require("express");
+const mongoose = require("mongoose");
 const app = express();
 
 // core module
@@ -15,7 +16,6 @@ const storeRouter = require("./routers/storeRouter");
 const adminRoute = require("./routers/adminRouter");
 const rootPath = require("./utils/pathUtil");
 const errorCon = require("./controllers/errorCon");
-const { mongoConnect } = require("./data/airbnb-db");
 
 // static path connect css file
 app.use(express.static(path.join(rootPath, "public/css")));
@@ -32,11 +32,16 @@ app.use(adminRoute);
 // Error Page
 app.use(errorCon.pageNotFound);
 
-mongoConnect((client) => {
-  console.log("data connect successfully", client);
-  app.listen(PORT, (err) => {
-    if (!err) {
-      console.log(`server is running on PORT http://localhost:${PORT}/index`);
-    }
+mongoose
+  .connect(process.env.MONGODB_URL)
+  .then(() => {
+    console.log("database is connecting...!!");
+    app.listen(PORT, (err) => {
+      if (!err) {
+        console.log(`server is running on PORT http://localhost:${PORT}/index`);
+      }
+    });
+  })
+  .catch((error) => {
+    console.log("database is not connecting...!!", error);
   });
-});
