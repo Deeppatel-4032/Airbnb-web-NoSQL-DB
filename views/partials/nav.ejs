@@ -1,55 +1,131 @@
-<header class="bg-red-500 text-white p-4 shadow-md">
-  <nav class="container mx-auto flex justify-between items-center">
-    <ul class="flex space-x-4 items-center">
-      <li>
+<header class="bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-lg">
+  <nav class="container mx-auto px-4 py-3">
+    <div class="flex justify-between items-center">
+      <!-- Left Side Navigation -->
+      <div class="flex items-center space-x-6">
+        <!-- Logo/Brand -->
         <a href="/"
-          class="<%= currantPage === 'index' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300">Airbnb</a>
-      </li>
-      <% if(isLoggedIn){%>
-        <li>
-          <a href="/home"
-            class="<%= currantPage === 'home' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300">
-            Home Lists</a>
-        </li>
-        <li>
-          <a href="/booking-list"
-            class="<%= currantPage === 'booking-list' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300">Bookings</a>
-        </li>
-        <li>
-          <a href="/favourite-list"
-            class="<%= currantPage === 'favourite-list' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300">Favourites</a>
-        </li>
-        <li>
-          <a href="/add-homeForm"
-            class="<%= currantPage === 'addHome' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300">Add
-            Home</a>
-        </li>
-        <li>
-          <a href="/admin-home"
-            class="<%= currantPage === 'admin-home' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300">Admin
-            Home</a>
-        </li>
-        <li>
-          <input type="text" name="search" id="search"
-            class="text-white py-2 px-4 w-80 border border-amber-50 outline-0 rounded-3xl transition duration-300"
-            placeholder="Search">
+          class="flex items-center space-x-2 <%= currantPage === 'index' ? 'text-white' : 'text-white/90 hover:text-white' %> transition duration-300">
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12.0002 1.99921C16.9707 1.99921 21.0002 6.02872 21.0002 10.9992C21.0002 13.9881 19.4637 16.6188 17.1006 18.1898L17.0002 18.2492V19.9992C17.0002 20.5515 16.5525 20.9992 16.0002 20.9992H8.00024C7.44796 20.9992 7.00024 20.5515 7.00024 19.9992V18.2492L6.89988 18.1898C4.53677 16.6188 3.00024 13.9881 3.00024 10.9992C3.00024 6.02872 7.02975 1.99921 12.0002 1.99921ZM12.0002 3.99921C8.13425 3.99921 5.00024 7.13322 5.00024 10.9992C5.00024 13.4566 6.2897 15.5873 8.22036 16.7501L9.00024 17.2264V18.9992H15.0002V17.2264L15.7801 16.7501C17.7108 15.5873 19.0002 13.4566 19.0002 10.9992C19.0002 7.13322 15.8662 3.99921 12.0002 3.99921Z" />
+          </svg>
+          <span class="text-xl font-bold">Airbnb</span>
+        </a>
 
-        </li>
-        <%}%>
-    </ul>
-    <ul class="flex gap-x-3">
-      <li>
-        <% if(!isLoggedIn){%>
-          <a href="/logInForm"
-            class="hover:bg-white hover:text-black py-2 px-4 border border-amber-50 rounded transition duration-300">LogIn</a>
-          <%} else {%>
+        <!-- Main Navigation Items -->
+        <% if(isLoggedIn) { %>
+          <ul class="hidden md:flex items-center space-x-4">
+            <% if(user && user.userType==='guest' ) { %>
+              <li>
+                <a href="/home"
+                  class="px-4 py-2 rounded-full text-sm font-medium transition duration-300 border-white border-[1px] flex items-center <%= currantPage === 'home' ? 'bg-white text-red-600' : 'hover:bg-white hover:text-red-600' %>">
+                  <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                  </svg>
+                  <span>Home Lists</span>
+                </a>
+              </li>
+              <li>
+                <a href="/booking-list"
+                  class="px-4 py-2 rounded-full text-sm font-medium transition duration-300 border-white border-[1px] flex items-center <%= currantPage === 'booking-list' ? 'bg-white text-red-600' : 'hover:bg-white hover:text-red-600' %>">
+                  <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span>Bookings</span>
+                </a>
+              </li>
+              <li>
+                <a href="/favourite-list"
+                  class="px-4 py-2 rounded-full text-sm font-medium transition duration-300 border-white border-[1px] flex items-center <%= currantPage === 'favourite-list' ? 'bg-white text-red-600' : 'hover:bg-white hover:text-red-600' %>">
+                  <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                  <span>Favourites</span>
+                </a>
+              </li>
+              <%} else {%>
+                <li>
+                  <a href="/add-homeForm"
+                    class="px-4 py-2 rounded-full text-sm font-medium transition duration-300 border-white border-[1px] flex items-center <%= currantPage === 'addHome' ? 'bg-white text-red-600' : 'hover:bg-white hover:text-red-600' %>">
+                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Add Home</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/admin-home"
+                    class="px-4 py-2 rounded-full text-sm font-medium transition duration-300 border-white border-[1px] flex items-center <%= currantPage === 'admin-home' ? 'bg-white text-red-600' : 'hover:bg-white hover:text-red-600' %>">
+                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                    </svg>
+                    <span>Admin Home</span>
+                  </a>
+                </li>
+                <%} %>
+          </ul>
+          <% } %>
+      </div>
+
+      <!-- Right Side Items -->
+      <ul class="flex items-center space-x-4">
+        <% if(isLoggedIn) { %>
+          <li>
+            <!-- Search Bar -->
+            <div class="hidden md:block relative">
+              <input type="text" name="search" id="search"
+                class="w-64 pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-full text-white placeholder-white/70 focus:outline-none focus:border-white/40 focus:bg-white/20 transition duration-300"
+                placeholder="Search homes...">
+              <svg class="w-5 h-5 absolute left-3 top-2.5 text-white/70" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+          </li>
+          <li>
+            <!-- Logout Button -->
             <form action="/logOut" method="post">
               <button
-                class="hover:bg-white hover:text-black py-2 px-4 border border-amber-50 rounded transition duration-300">logOut</button>
+                class="px-4 py-2 rounded-full text-sm font-medium transition duration-300 border-white border-[1px] flex items-center <%= currantPage === 'logout' ? 'bg-white text-red-600' : 'hover:bg-white hover:text-red-600' %>">
+                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                <span>Log Out</span>
+              </button>
             </form>
-            <%}%>
-      </li>
-    </ul>
+          </li>
+          <% } else { %>
+            <li>
+              <a href="/signUpForm"
+                class="px-4 py-2 rounded-full text-sm font-medium transition duration-300 border-white border-[1px] flex items-center <%= currantPage === 'signUp' ? 'bg-white text-red-600' : 'hover:bg-white hover:text-red-600' %>">
+                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                </svg>
+                <span>Sign Up</span>
+              </a>
+            </li>
+            <li>
+              <a href="/logInForm"
+                class="px-4 py-2 rounded-full text-sm font-medium transition duration-300 border-white border-[1px] flex items-center <%= currantPage === 'login' ? 'bg-white text-red-600' : 'hover:bg-white hover:text-red-600' %>">
+                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                </svg>
+                <span>Log In</span>
+              </a>
+            </li>
+            <% } %>
+      </ul>
     </div>
   </nav>
 </header>
+</style>

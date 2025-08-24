@@ -1,4 +1,7 @@
+// local modules
 const homeModel = require("../models/homeModel");
+
+// ============================== get request heandale ==================================
 
 exports.getAddHome = (req, res) => {
   res.render("admin/edit-home", {
@@ -6,6 +9,7 @@ exports.getAddHome = (req, res) => {
     currantPage: "addHome",
     editing: false,
     isLoggedIn: req.isLoggedIn,
+    user: req.session.user,
   });
 };
 
@@ -25,6 +29,7 @@ exports.getEditHome = (req, res) => {
       currantPage: "addHome",
       editing: editing,
       isLoggedIn: req.isLoggedIn,
+      user: req.session.user,
     });
   });
 };
@@ -36,10 +41,14 @@ exports.getAdminHome = (req, res) => {
       pageTitle: "Admin house Page",
       currantPage: "admin-home",
       isLoggedIn: req.isLoggedIn,
+      user: req.session.user,
     });
   });
 };
 
+// ============================== post request heandale ==================================
+
+// admin add new Homes
 exports.postAddHome = (req, res) => {
   console.log("Home Registeration successful for : ", req.body);
 
@@ -59,6 +68,7 @@ exports.postAddHome = (req, res) => {
   res.redirect("/admin-home");
 };
 
+// admin edit/update Home
 exports.postUpdateHome = (req, res) => {
   const { id, name, price, location, rating, imageUrl, description } = req.body;
 
@@ -90,6 +100,7 @@ exports.postUpdateHome = (req, res) => {
     });
 };
 
+// admin Delete Home
 exports.postDeleteHome = (req, res) => {
   let { homeId } = req.params;
 

@@ -1,25 +1,83 @@
 <%- include('../partials/head') %>
   </head>
 
-  <body>
+  <body class="min-h-screen bg-gradient-to-br from-red-50 via-pink-50 to-orange-50">
     <%- include('../partials/nav') %>
-      <main class="container  mx-auto mt-8 p-8">
-        <h1 class="text-3xl font-bold mb-10 text-center text-gray-800">
-          LogIn Your Home on AirBnB
-        </h1>
-        <form action="/login" method="POST" class="max-w-md mx-auto">
-          <input type="email" name="email" placeholder="Enter Your Email ID"
-            class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-            required />
-          <input type="password" name="password" placeholder="Enter your Password"
-            class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-            required />
-          <button type="submit"
-            class="w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-400 transition duration-300">logIn</button>
-          <p class="mt-10">Don't Have An Account...?
-            <a href="/signUpForm" class="text-blue-500 pl-2">Sign Up Now</a>
-          </p>
-        </form>
+      <main class="container mx-auto min-h-[calc(100vh-80px)] flex items-center justify-center px-4">
+        <div class="w-full max-w-md bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl p-8 border border-gray-100">
+          <!-- Logo/Icon -->
+          <div class="text-center mb-8">
+            <div
+              class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-red-500 to-pink-500 flex items-center justify-center">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+              </svg>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h1>
+            <p class="text-gray-600">Sign in to your account</p>
+          </div>
+          <%- include('../partials/errors') %>
+            <form action="/login" method="POST" class="space-y-6">
+              <!-- Email Field -->
+              <div class="space-y-2">
+                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                <div class="relative rounded-xl shadow-sm">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                    </svg>
+                  </div>
+                  <input type="email" name="email" id="email" value="<%= oldInput.email ? oldInput.email : '' %>"
+                    class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition duration-200"
+                    placeholder="your@email.com" required />
+                </div>
+              </div>
+
+              <!-- Password Field -->
+              <div class="space-y-2">
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <div class="relative rounded-xl shadow-sm">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                  </div>
+                  <input type="password" name="password" id="password"
+                    class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition duration-200"
+                    placeholder="••••••••" required />
+                </div>
+              </div>
+
+              <!-- Remember Me & Forgot Password -->
+              <div class="flex items-center justify-between">
+                <label class="flex items-center space-x-2 cursor-pointer group">
+                  <input type="checkbox" class="w-4 h-4 text-red-500 border-gray-300 rounded focus:ring-red-500">
+                  <span class="text-sm text-gray-600 group-hover:text-gray-900">Remember me</span>
+                </label>
+                <a href="#" class="text-sm text-red-500 hover:text-red-600 transition duration-200">
+                  Forgot password?
+                </a>
+              </div>
+
+              <!-- Login Button -->
+              <button type="submit" class="w-full bg-gradient-to-r from-red-500 to-pink-500 text-white py-3 rounded-xl font-semibold
+                       hover:from-red-600 hover:to-pink-600 transform hover:-translate-y-0.5 transition-all duration-200
+                       focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 shadow-lg">
+                Log In
+              </button>
+
+              <!-- Sign Up Link -->
+              <p class="text-center text-gray-600 mt-6">
+                Don't have an account yet?
+                <a href="/signUpForm" class="text-red-500 hover:text-red-600 font-medium ml-1 transition duration-200">
+                  Create account
+                </a>
+              </p>
+            </form>
+        </div>
       </main>
   </body>
 

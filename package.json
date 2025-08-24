@@ -11,12 +11,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/cli": "^4.1.11",
+    "@tailwindcss/line-clamp": "^0.4.4",
+    "bcrypt": "^6.0.0",
     "connect-mongodb-session": "^5.0.0",
     "dotenv": "^17.2.1",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-session": "^1.18.2",
+    "express-validator": "^7.2.1",
     "mongodb": "^6.18.0",
     "mongoose": "^8.17.1",
     "tailwindcss": "^4.1.11"

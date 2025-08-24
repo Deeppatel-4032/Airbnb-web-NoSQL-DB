@@ -1,48 +1,121 @@
 <%- include("../partials/head") %>
   </head>
 
-  <body class="bg-gray-100 text-gray-900">
+  <body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
     <%- include("../partials/nav") %>
 
       <main class="container mx-auto px-4 py-10">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <% if(homes.length> 0) {%>
+        <!-- Page Title -->
+        <h1
+          class="text-4xl font-bold text-center mb-10 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+          Manage Your Properties
+        </h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <% if(homes.length> 0) { %>
             <% homes.forEach(home=> { %>
-              <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
-                <img class="h-48 w-full object-cover" src="<%= home.imageUrl %>" alt="<%= home.name %>" />
-                <div class="p-4">
-                  <h3 class="text-lg font-semibold mb-1 truncate">
+              <div
+                class="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+                <!-- Image Container -->
+                <div class="relative overflow-hidden aspect-w-16 aspect-h-12">
+                  <img src="<%= home.imageUrl %>" alt="<%= home.name %>"
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
+                  <!-- Price Badge -->
+                  <div class="absolute top-4 right-4">
+                    <div class="bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+                      <span class="text-red-500 font-bold text-lg">₹<%= home.price %></span>
+                      <span class="text-gray-600">/night</span>
+                    </div>
+                  </div>
+                  <!-- Status Badge -->
+                  <div class="absolute top-4 left-4">
+                    <div class="bg-green-500/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+                      <span class="text-white font-medium text-sm">Active</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Content Container -->
+                <div class="p-6 space-y-4">
+                  <!-- Title -->
+                  <h3
+                    class="text-xl font-bold text-gray-800 group-hover:text-gray-600 transition-colors duration-300 truncate">
                     <%= home.name %>
                   </h3>
-                  <p class=" text-gray-400 mb-1">
+
+                  <!-- Description -->
+                  <p class="text-gray-600 text-sm line-clamp-2">
                     <%= home.description %>
                   </p>
-                  <p class="text-sm text-gray-600 mb-1">
-                    <i class="fas fa-map-marker-alt mr-1"></i>
-                    <%= home.location %>
-                  </p>
-                  <p class="text-red-500 font-bold mb-2">₹ <%= home.price %> / Night
-                  </p>
 
-                  <span class="text-gray-600">
-                    <i class="fas fa-star  text-yellow-500"></i>
-                    <%= home.rating %> Rating
-                  </span>
-                </div>
-                <div class="ml-4 mb-2.5 flex">
-                  <a href="/edit-home/<%= home._id %>?editing=true"
-                    class="py-2 px-8  font-medium rounded-tr-2xl rounded-bl-2xl text-gray-900 bg-yellow-500 ml-2.5 mb-3">Edit</a>
-                  <form action="/delete-home/<%= home._id %>" method="post">
-                    <button type="submit"
-                      class="py-2 px-8 bg-red-500 font-medium rounded-tr-2xl rounded-bl-2xl text-amber-50 ml-2.5 mb-3">Delete
-                    </button>
-                  </form>
+                  <!-- Location -->
+                  <div class="flex items-center text-gray-500">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span class="text-sm">
+                      <%= home.location %>
+                    </span>
+                  </div>
+
+                  <!-- Rating -->
+                  <div class="flex items-center space-x-1">
+                    <div class="flex">
+                      <% for(let i=0; i < Math.floor(home.rating); i++) { %>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <% } %>
+                    </div>
+                    <span class="text-sm font-medium text-gray-600">
+                      <%= home.rating %> Rating
+                    </span>
+                  </div>
+
+                  <!-- Action Buttons -->
+                  <div class="pt-4 grid grid-cols-2 gap-3">
+                    <a href="/edit-home/<%= home._id %>?editing=true"
+                      class="flex items-center justify-center px-4 py-2.5 bg-yellow-500 text-gray-900 rounded-xl font-semibold tracking-wide hover:bg-yellow-600 transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 shadow-lg hover:shadow-xl">
+                      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                      Edit
+                    </a>
+                    <form action="/delete-home/<%= home._id %>" method="post" class="inline">
+                      <button type="submit" class="flex items-center justify-center w-full px-4 py-2.5
+             bg-red-500 text-white rounded-xl
+             font-semibold tracking-wide
+             hover:bg-red-600
+             transform hover:-translate-y-0.5
+             transition-all duration-200
+             focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2
+             shadow-lg hover:shadow-xl">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        Delete
+                      </button>
+                    </form>
+                  </div>
                 </div>
               </div>
               <% }) %>
                 <% } else { %>
-                  <p class="col-span-4 text-center text-gray-600">No homes available.</p>
-                  <% }%>
+                  <div class="col-span-full flex flex-col items-center justify-center py-12">
+                    <svg class="w-16 h-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    <p class="text-xl font-medium text-gray-600">No properties available</p>
+                    <p class="text-gray-500 mt-2">Add your first property to get started</p>
+                  </div>
+                  <% } %>
         </div>
       </main>
   </body>
