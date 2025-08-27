@@ -27,9 +27,11 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 // static path connect css file
-app.use(express.static(path.join(rootPath, "public/css")));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static(path.join(rootPath, "public/css")));
+app.use("/public", express.static(path.join(rootPath, "public")));
+app.use("/home-details/public", express.static(path.join(rootPath, "public")));
 
 const store = new mongodbStore({
   uri: MONGODB_URL,

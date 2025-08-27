@@ -7,7 +7,7 @@ const userModel = require("../models/userModel");
 exports.getIndex = async (req, res) => {
   console.log(req.session, req.session.isLoggedIn);
 
-  const registerHome = await homeModel.find({});
+  const registerHome = await homeModel.find();
 
   res.render("store/index", {
     homes: registerHome,
@@ -20,7 +20,7 @@ exports.getIndex = async (req, res) => {
 
 // get home List
 exports.getHome = async (req, res) => {
-  const registerHome = await homeModel.find({});
+  const registerHome = await homeModel.find();
   res.render("store/home-list", {
     homes: registerHome,
     pageTitle: "airbnb Home.com",
@@ -60,6 +60,8 @@ exports.getHoemDetails = async (req, res) => {
   const homeId = req.params.homeId;
   console.log("_id", homeId);
   const home = await homeModel.findById(homeId);
+
+  console.log("home details ", home);
 
   if (!home) {
     res.redirect("/home");

@@ -1,5 +1,5 @@
 exports.isLoggedIn = (req, res, next) => {
-  if (!req.isLoggedIn) {
+  if (!req.session.isLoggedIn) {
     return res.redirect("/logInForm");
   }
   next();

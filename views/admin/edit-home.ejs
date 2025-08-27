@@ -23,9 +23,8 @@
             </div>
 
             <!-- Form -->
-            <form action="<%= editing ? '/edit-home' : '/home-added' %>" method="POST" class="space-y-6">
-              <input type="hidden" name="id" value="<%= editing ? home._id : '' %>">
-
+            <form action="<%= editing ? ('/update-home/' + home._id): '/home-added' %>" method="POST"
+              enctype="multipart/form-data" class="space-y-6">
               <!-- Property Name -->
               <div class="space-y-2">
                 <label class="text-sm font-medium text-gray-700">Property Name</label>
@@ -58,15 +57,14 @@
                 <label class="text-sm font-medium text-gray-700">Location</label>
                 <input type="text" name="location" value="<%= editing ? home.location : '' %>"
                   class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition duration-200"
-                  placeholder="e.g. Mumbai, Maharashtra" required />
+                  placeholder="e.g. valsad, gujarat" required />
               </div>
 
               <!-- Image URL -->
               <div class="space-y-2">
                 <label class="text-sm font-medium text-gray-700">Image URL</label>
-                <input type="url" name="imageUrl" value="<%= editing ? home.imageUrl : '' %>"
-                  class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition duration-200"
-                  placeholder="https://example.com/image.jpg" required />
+                <input type="file" name="photo" accept="image/jpg, image/jpeg, image/png"
+                  class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition duration-200" />
               </div>
 
               <!-- Description -->
