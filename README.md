@@ -49,8 +49,8 @@ A full-stack Airbnb-inspired property listing and booking web application built 
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/airbnb-website-mongodb-database.git
-   cd airbnb-website-mongodb-database
+   git clone https://github.com/Deeppatel-4032/Airbnb-web-NoSQL-DB
+   cd Airbnb-web-NoSQL-DB
    ```
 
 2. **Install dependencies:**
